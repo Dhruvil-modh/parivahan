@@ -10,7 +10,9 @@ const UserProfile = require('./models/UserProfile');
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-const MONGODB_URI = 'mongodb://localhost/parivahan';
+// const MONGODB_URI = 'mongodb://localhost/parivahan';
+const MONGODB_URI = 'mongodb+srv://adminParivahan:ParivahanInc@1@cluster0.qfzin.mongodb.net/Parivahan?retryWrites=true&w=majority';
+
 
 // MongoDB Connection
 mongoose.connect(MONGODB_URI, {
