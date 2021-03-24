@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "devStart": "nodemon server.js",
-    "client": "cd ../client && npm devStart",
+    "client": "cd ../client && npm start",
     "dev": "concurrently -n 'server,client' -c 'green,red' \"nodemon server.js\" \"npm run client\""
   },
   "author": "ZRS Mahida",
