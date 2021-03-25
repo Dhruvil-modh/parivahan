@@ -91,7 +91,8 @@ app.post("/login", (req, res, next) => {
                         const token = signToken(user._id);
                         res.cookie("access_token", token, {
                             httpOnly: true,
-                            sameSite: true
+                            sameSite: true,
+                            secure: true
                         }); // httpOnly and sameSite is must, to protect JWT token.
                         res.status(200).json({
                             isAuthenticated: true,
