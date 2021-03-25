@@ -6,6 +6,7 @@ const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 const UserProfile = require('./models/UserProfile');
+const Cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -32,6 +33,7 @@ app.use(express.static(__dirname + "./data/"));
 // Data Parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(Cors());
 
 // Cookie Parsing
 app.use(cookieParser());

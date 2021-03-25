@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const UserProfile = require('../models/UserProfile');
-const Transection = require('../models/Transection');
+const Transaction = require('../models/Transaction');
 var ObjectId = require('mongodb').ObjectID;
 const passport = require("passport");
 
@@ -14,13 +14,13 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
     });
 });
 
-router.get('/transections', passport.authenticate('jwt', { session: false }), function (req, res, next) {
+router.get('/transactions', passport.authenticate('jwt', { session: false }), function (req, res, next) {
     UserProfile.findById(ObjectId(req.user._id)).then((data) => {
         res.status(200).json(data.wallet.cashTransections);
     });
 });
 
-router.get('/transection/:id', passport.authenticate('jwt', { session: false }), function (req, res, next) {
+router.get('/transaction/:id', passport.authenticate('jwt', { session: false }), function (req, res, next) {
     const transectionId= req.params.id;
     Transection.findById(ObjectId(transectionId)).then((data) => {
         res.status(200).json(data);

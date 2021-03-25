@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // MongoDb Schema
 const Schema = mongoose.Schema;
-const TransectionSchema = new Schema({
+const TransactionSchema = new Schema({
     date: {
         type: String,
         required: true
@@ -32,6 +32,6 @@ const TransectionSchema = new Schema({
 });
 
 // Model
-const Transection = mongoose.model('transections', TransectionSchema);
+const Transaction = mongoose.model('transections', TransactionSchema);
 
-module.exports = Transection;
+module.exports = Transaction;
