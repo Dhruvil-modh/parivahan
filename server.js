@@ -31,7 +31,7 @@ mongoose.connection.on('connected', () => {
 // Static Path
 // app.use(express.static(path.join(__dirname, "..", "build")));
 // app.use(express.static("public"));
-app.use(express.static(path.join(__dirname, "./data/")));
+app.use(express.static(__dirname, "./data/"));
 
 // Data Parsing
 app.use(express.json());
