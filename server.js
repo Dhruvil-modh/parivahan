@@ -7,7 +7,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 const UserProfile = require('./models/UserProfile');
 const Cors = require('cors');
-// const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -29,17 +28,12 @@ mongoose.connection.on('connected', () => {
 });
 
 // Static Path
-// app.use(express.static(path.join(__dirname, "..", "build")));
-// app.use(express.static("public"));
-app.use(express.static(__dirname, "./data/"));
+app.use(express.static(__dirname + "./data/"));
 
 // Data Parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(Cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-}));
+app.use(Cors());
 
 // Cookie Parsing
 app.use(cookieParser());
@@ -248,9 +242,5 @@ app.post("/changepassword", async (req, res) => {
         });
     });
 });
-
-// app.use((req, res, next) => {
-//     res.sendFile(path.join(__dirname, "..", "build", "index.html"));
-// });
 
 app.listen(PORT, console.log(`Backend Server is running on Port: ${PORT}`));
