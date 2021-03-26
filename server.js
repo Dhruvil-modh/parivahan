@@ -6,7 +6,8 @@ const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 const UserProfile = require('./models/UserProfile');
-const Cors = require('cors');
+// const Cors = require('cors');
+// const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -28,12 +29,14 @@ mongoose.connection.on('connected', () => {
 });
 
 // Static Path
-app.use(express.static(__dirname + "./data/"));
+// app.use(express.static(path.join(__dirname, "..", "build")));
+// app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "./data/")));
 
 // Data Parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(Cors());
+// app.use(Cors());
 
 // Cookie Parsing
 app.use(cookieParser());
@@ -91,7 +94,7 @@ app.post("/login", (req, res, next) => {
                         const token = signToken(user._id);
                         res.cookie("access_token", token, {
                             httpOnly: true,
-                            // sameSite: true,
+                            sameSite: true,
                             secure: true
                         }); // httpOnly and sameSite is must, to protect JWT token.
                         res.status(200).json({
@@ -242,5 +245,9 @@ app.post("/changepassword", async (req, res) => {
         });
     });
 });
+
+// app.use((req, res, next) => {
+//     res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+// });
 
 app.listen(PORT, console.log(`Backend Server is running on Port: ${PORT}`));
