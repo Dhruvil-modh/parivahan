@@ -33,7 +33,10 @@ app.use(express.static(__dirname + "./data/"));
 // Data Parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(Cors());
+app.use(Cors({
+    preflightContinue: true,
+    credentials: true,
+}));
 
 // Cookie Parsing
 app.use(cookieParser());
