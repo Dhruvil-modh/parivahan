@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, "./data/")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(Cors({
-    origin: "http://localhost:3000/",
+    origin: "http://localhost:3000",
     credentials: true,
 }));
 
