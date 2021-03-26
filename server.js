@@ -37,14 +37,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 // Cors Error
 app.use(Cors({
-    origin: "https://parivahan.tech",
+    origin: "https://parivahan-client.firebaseapp.com",
     preflightContinue: true,
     credentials: true,
 }));
 
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'https://parivahan.tech');
+    res.setHeader('Access-Control-Allow-Origin', 'https://parivahan-client.firebaseapp.com');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
