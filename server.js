@@ -34,6 +34,7 @@ app.use(express.static(__dirname + "./data/"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(Cors({
+    origin: "http://localhost:3000",
     preflightContinue: true,
     credentials: true,
 }));
