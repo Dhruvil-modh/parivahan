@@ -1,0 +1,6 @@
+Database Url: adminParivahan
+Password: isNZi92u8P8WVMKI
+
+Our Used vapidKeys
+Public Key: BP7FDVtfN-7CR2kRnCqMMORHIuW0Ckn_Jqmn5koOFz_1hM_7RdRVPPyqnygmAGw5sO3vpWMbRJ784j-XFVUddrg
+Private Key: C6A58zEm0DxGltmQ8xaxBrfZ6j5OykKhvJGqIFSI-ok
