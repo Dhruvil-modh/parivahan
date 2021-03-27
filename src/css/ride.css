@@ -1,0 +1,21 @@
+.newRideIcons {
+    font-size: 50px;
+    color: black;
+    cursor: pointer;
+}
+
+.newRideCloseIcon {
+    font-size: 30px;
+    color: black;
+}
+
+.newRideCloseIcon:hover {
+    padding: 5px;
+    color: black;
+}
+
+.newRideIcons:hover {
+    font-size: 40px;
+    color: black;
+    cursor: pointer;
+}

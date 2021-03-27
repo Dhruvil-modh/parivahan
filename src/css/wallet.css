@@ -1,0 +1,16 @@
+.addAmount {
+    flex: 1;
+    max-width: 70vw;
+    outline-width: 0;
+    border: none;
+    padding: 0px 20px;
+    margin: 20px 10px;
+    margin-top: 0px;
+    border-radius: 20px;
+    background-color: #ffffff;
+    line-height: 3em;
+    border-bottom: 2px solid black;
+    width: 100%;
+    font-family: FontAwesome;
+}
+

@@ -1,0 +1,25 @@
+.headerTabIcons {
+    font-size: 30px;
+    color: gray;
+}
+
+.headerIcons {
+    font-size: 35px;
+    color: black;
+}
+
+.headerLogo {
+    font-weight: bold;
+    font-size: 35px;
+    text-decoration: none;
+}
+
+.headerIcons:hover {
+    font-size: 45px;
+    color: black;
+}
+
+.headerTabIcons:hover {
+    font-size: 40px;
+    color: black;
+}
