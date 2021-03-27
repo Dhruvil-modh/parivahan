@@ -6,7 +6,7 @@ const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 const UserProfile = require('./models/UserProfile');
-// const Cors = require('cors');
+const Cors = require('cors');
 const {MONGOURI, JWT_SECRET} = require('./config/keys');
 
 const app = express();
@@ -42,6 +42,7 @@ app.use(cookieParser());
 //     preflightContinue: true,
 //     credentials: true,
 // }));
+app.use(Cors());
 
 // app.use(function (req, res, next) {
 //     // Website you wish to allow to connect
