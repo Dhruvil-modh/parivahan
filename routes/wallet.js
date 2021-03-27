@@ -22,7 +22,7 @@ router.get('/transactions', passport.authenticate('jwt', { session: false }), fu
 
 router.get('/transaction/:id', passport.authenticate('jwt', { session: false }), function (req, res, next) {
     const transectionId= req.params.id;
-    Transection.findById(ObjectId(transectionId)).then((data) => {
+    Transaction.findById(ObjectId(transectionId)).then((data) => {
         res.status(200).json(data);
     });
 });
@@ -34,7 +34,7 @@ router.post('/addpoints', passport.authenticate('jwt', { session: false }), asyn
         amount: req.body.amount,
         points: req.body.points
     }
-    const newTransaction = new Transection(transactionDetails);
+    const newTransaction = new Transaction(transactionDetails);
     await newTransaction.save(function (err, result) {
         const transactionId = result._id;
         UserProfile.findById(ObjectId(req.user._id)).then((data) => {

@@ -6,7 +6,7 @@ const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 const UserProfile = require('./models/UserProfile');
-const Cors = require('cors');
+// const Cors = require('cors');
 const {MONGOURI, JWT_SECRET} = require('./config/keys');
 
 const app = express();
@@ -37,16 +37,16 @@ app.use(express.urlencoded({ extended: true }));
 // Cookie Parsing
 app.use(cookieParser());
 // Cors Error
-app.use(Cors({
-    origin: "https://parivahan.tech",
-    preflightContinue: true,
-    credentials: true,
-}));
+// app.use(Cors({
+//     origin: "http://localhost:3000",
+//     preflightContinue: true,
+//     credentials: true,
+// }));
 // app.use(Cors());
 
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'https://parivahan.tech');
+    res.setHeader('Access-Control-Allow-Origin', 'http://parivahan.tech');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -119,7 +119,6 @@ app.post("/login", (req, res, next) => {
                             secure: true
                         }); // httpOnly and sameSite is must, to protect JWT token.
                         res.status(200).json({
-                            token: token,
                             isAuthenticated: true,
                             user: user
                         });
@@ -184,6 +183,7 @@ app.get("/authenticated", passport.authenticate('jwt', { session: false }), (req
     if (req.user === null || req.user === "" || req.user === undefined) {
         res.status(203).send('User Data not found');
     }
+    console.log("authenticated: " + req.user);
     res.status(200).json({ isAuthenticated: true, user: req.user });
 });
 app.post("/forgetpassword", (req, res) => {
@@ -267,13 +267,5 @@ app.post("/changepassword", async (req, res) => {
         });
     });
 });
-
-if(process.env.NODE_ENV==="production"){
-    app.use(express.static('client/build'));
-    const path = require('path');
-    app.get("*",(req,res)=>{
-        res.sendFile(path.join(__dirname,'client','build','index.html'))
-    });
-}
 
 app.listen(PORT, console.log(`Backend Server is running on Port: ${PORT}`));

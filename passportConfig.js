@@ -10,6 +10,7 @@ const tokenExtractor = req => {
     if(req && req.cookies){
         token = req.cookies["access_token"];
     }
+    console.log("Token: " + token);
     // if (!authorization) {
     //     return res.status(401).json({ error: "you must be logged in" })
     // }
@@ -22,10 +23,7 @@ module.exports = function (passport) {
     passport.use(new JwtStrategy({
         jwtFromRequest: tokenExtractor,
         secretOrKey: JWT_SECRET
-    }, (err, payload, done) => {
-        if (err) {
-            return res.json({ isAuthenticated: true, error: "you must be logged in" })
-        }
+    }, (payload, done) => {
         UserProfile.findById({ _id: payload.sub }, (err, user) => {
             if (err)
                 return done(err, false);
