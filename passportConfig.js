@@ -6,14 +6,14 @@ const {JWT_SECRET} = require('./config/keys');
 
 const tokenExtractor = req => {
     let token = null;
-    const { authorization } = req.headers
-    // if(req && req.cookies){
-    //     token = req.cookies["access_token"];
-    // }
-    if (!authorization) {
-        return res.status(401).json({ error: "you must be logged in" })
+    // const { authorization } = req.headers
+    if(req && req.cookies){
+        token = req.cookies["access_token"];
     }
-    token = authorization.replace("Bearer ", "")
+    // if (!authorization) {
+    //     return res.status(401).json({ error: "you must be logged in" })
+    // }
+    // token = authorization.replace("Bearer ", "")
     return token;
 }
 
