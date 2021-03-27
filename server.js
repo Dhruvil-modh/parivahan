@@ -66,11 +66,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 require("./passportConfig")(passport);
 
-// app.get("/", (req, res) => {
-//     res.status(200).json({
-//         msg: "Team Parivahan"
-//     });
-// });
+app.get("/", (req, res) => {
+    res.status(200).json({
+        msg: "Team Parivahan"
+    });
+});
 
 const bikes = require('./routes/bikes');
 const ports = require('./routes/ports');
