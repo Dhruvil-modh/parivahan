@@ -2,28 +2,37 @@ const UserProfile = require("./models/UserProfile");
 const bcrypt = require("bcryptjs");
 const localStrategy = require("passport-local").Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
+const {JWT_SECRET} = require('./config/keys');
 
-const cookieExtractor = req =>{
+const tokenExtractor = req => {
     let token = null;
-    if(req && req.cookies){
-        token = req.cookies["access_token"];        
+    const { authorization } = req.headers
+    // if(req && req.cookies){
+    //     token = req.cookies["access_token"];
+    // }
+    if (!authorization) {
+        return res.status(401).json({ error: "you must be logged in" })
     }
+    token = authorization.replace("Bearer ", "")
     return token;
 }
 
 module.exports = function (passport) {
     // Authorization
     passport.use(new JwtStrategy({
-        jwtFromRequest : cookieExtractor,
-        secretOrKey : 'q5gcejav4tz982r10dhz907f5ta6fdgg2800te3fc7ldm27qv3'
-    },(payload,done)=>{
-        UserProfile.findById({_id : payload.sub},(err,user)=>{
-            if(err)
-                return done(err,false);
-            if(user)
-                return done(null,user);
+        jwtFromRequest: tokenExtractor,
+        secretOrKey: JWT_SECRET
+    }, (err, payload, done) => {
+        if (err) {
+            return res.json({ isAuthenticated: true, error: "you must be logged in" })
+        }
+        UserProfile.findById({ _id: payload.sub }, (err, user) => {
+            if (err)
+                return done(err, false);
+            if (user)
+                return done(null, user);
             else
-                return done(null,false);
+                return done(null, false);
         });
     }));
 

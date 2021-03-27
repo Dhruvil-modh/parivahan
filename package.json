@@ -8,11 +8,8 @@
     "npm": ">=3.9.5"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "devStart": "nodemon server.js",
-    "client": "cd ../client && npm start",
-    "dev": "concurrently -n 'server,client' -c 'green,red' \"nodemon server.js\" \"npm run client\""
+    "start": "node app.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "ZRS Mahida",
   "license": "ISC",

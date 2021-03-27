@@ -6,13 +6,14 @@ const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 const UserProfile = require('./models/UserProfile');
-const Cors = require('cors');
+// const Cors = require('cors');
+const {MONGOURI, JWT_SECRET} = require('./config/keys');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
 // const MONGODB_URI = 'mongodb://localhost/parivahan';
-const MONGODB_URI = 'mongodb+srv://adminParivahan:isNZi92u8P8WVMKI@cluster0.qfzin.mongodb.net/Parivahan?retryWrites=true&w=majority';
+const MONGODB_URI = MONGOURI;
 
 
 // MongoDB Connection
@@ -36,29 +37,29 @@ app.use(express.urlencoded({ extended: true }));
 // Cookie Parsing
 app.use(cookieParser());
 // Cors Error
-app.use(Cors({
-    origin: "https://parivahan-client.firebaseapp.com",
-    preflightContinue: true,
-    credentials: true,
-}));
+// app.use(Cors({
+//     origin: "https://parivahan-client.firebaseapp.com",
+//     preflightContinue: true,
+//     credentials: true,
+// }));
 
-app.use(function (req, res, next) {
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'https://parivahan-client.firebaseapp.com');
+// app.use(function (req, res, next) {
+//     // Website you wish to allow to connect
+//     res.setHeader('Access-Control-Allow-Origin', 'https://parivahan-client.firebaseapp.com');
 
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//     // Request methods you wish to allow
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+//     // Request headers you wish to allow
+//     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
+//     // Set to true if you need the website to include cookies in the requests sent
+//     // to the API (e.g. in case you use sessions)
+//     res.setHeader('Access-Control-Allow-Credentials', true);
 
-    // Pass to next layer of middleware
-    next();
-});
+//     // Pass to next layer of middleware
+//     next();
+// });
 
 // PassportJS
 app.use(passport.initialize());
@@ -89,7 +90,7 @@ const signToken = userId => {
     return jwt.sign({
         iss: 'Parivahan',
         sub: userId
-    }, 'q5gcejav4tz982r10dhz907f5ta6fdgg2800te3fc7ldm27qv3', { expiresIn: "7d" });
+    }, JWT_SECRET, { expiresIn: "7d" });
 }
 
 // Routes
@@ -117,6 +118,7 @@ app.post("/login", (req, res, next) => {
                             secure: true
                         }); // httpOnly and sameSite is must, to protect JWT token.
                         res.status(200).json({
+                            token: token,
                             isAuthenticated: true,
                             user: user
                         });
@@ -264,5 +266,13 @@ app.post("/changepassword", async (req, res) => {
         });
     });
 });
+
+if(process.env.NODE_ENV=="production"){
+    app.use(express.static('client/build'));
+    const path = require('path');
+    app.get("*",(req,res)=>{
+        res.sendFile(path.resolve(__dirname,'client','build','index.html'))
+    });
+}
 
 app.listen(PORT, console.log(`Backend Server is running on Port: ${PORT}`));
