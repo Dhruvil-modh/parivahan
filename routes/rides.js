@@ -81,15 +81,15 @@ router.post('/endride', passport.authenticate('jwt', { session: false }), async 
                 if (err) return res.status(500).send({ error: err });
                 Bike.updateOne({ _id: ride.bikeId }, { $set: { currentRider: null } }, { upsert: true }, function (err, doc) {
                     if (err) return res.status(500).send({ error: err });
-                    // Port.updateOne({ _id: ride.endingPort }, { $push: { bikes: ride.bikeId } }, { upsert: true }, function (err, doc) {
-                    //     if (err) return res.status(500).send({ error: err });
-                    //     return res.json({
-                    //         message: 'Data Updated!!'
-                    //     });
-                    // });
-                    return res.json({
-                        message: 'Data Updated!!'
+                    Port.updateOne({ _id: ride.endingPort }, { $push: { bikes: ride.bikeId } }, { upsert: true }, function (err, doc) {
+                        if (err) return res.status(500).send({ error: err });
+                        return res.json({
+                            message: 'Data Updated!!'
+                        });
                     });
+//                     return res.json({
+//                         message: 'Data Updated!!'
+//                     });
                 });
             });
         });
