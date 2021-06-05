@@ -44,6 +44,8 @@ app.use(cookieParser());
 // }));
 // app.use(Cors());
 
+var header;
+
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
 //     res.setHeader('Access-Control-Allow-Origin', 'http://parivahan.tech');
