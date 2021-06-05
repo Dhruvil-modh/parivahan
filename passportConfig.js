@@ -4,17 +4,23 @@ const localStrategy = require("passport-local").Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
 const {JWT_SECRET} = require('./config/keys');
 
+// const tokenExtractor = req => {
+//     let token = null;
+//     // const { authorization } = req.headers
+//     if(req && req.cookies){
+//         token = req.cookies["access_token"];
+//     }
+//     console.log("Token: " + token);
+//     // if (!authorization) {
+//     //     return res.status(401).json({ error: "you must be logged in" })
+//     // }
+//     // token = authorization.replace("Bearer ", "")
+//     return token;
+// }
+
 const tokenExtractor = req => {
     let token = null;
-    // const { authorization } = req.headers
-    if(req && req.cookies){
-        token = req.cookies["access_token"];
-    }
-    console.log("Token: " + token);
-    // if (!authorization) {
-    //     return res.status(401).json({ error: "you must be logged in" })
-    // }
-    // token = authorization.replace("Bearer ", "")
+    token = req.headers['x-access-token'];
     return token;
 }
 
